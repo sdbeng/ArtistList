@@ -1,11 +1,20 @@
 angular.module('myApp', [
-'ng-Route'
+'ngRoute',
+  'myApp.filters',
+  'myApp.services',
+  'myApp.directives',
+  'myApp.controllers',
+  'firebase'
 
 ]).
-config(['routeProvider', function($routeProvider) {
+config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/', {
-		templateUrl:'index.html',
+		templateUrl:'partials/landingpage.html',
 		controller:'LandingPageCtrl'
+	});
+	$routeProvider.when('/artists', {
+		templateUrl:'partials/artistspage.html',
+		controller:'ArtistsPageCtrl'
 	});
 	$routeProvider.otherwise({redirectTo: '/'});
 

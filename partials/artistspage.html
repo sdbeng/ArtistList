@@ -1,0 +1,54 @@
+<form ng-submit="saveArtist()" class="form-inline party-form" role="form">
+  <div class="form-group">
+    <label class="sr-only" for="artistName">Artist Name</label>
+    <input ng-model="artist.name" type="text" class="form-control" id="artistName" placeholder="Enter Artist Name">
+  </div>
+  
+  <div class="form-group">
+    <label class="sr-only" for="movieName">Movie Name</label>
+    <input ng-model="artist.movie" type="text" class="form-control" id="movieName" placeholder="Enter Movie Name">
+  </div>
+
+  <div class="form-group">
+    <label class="sr-only" for="city">City</label>
+    <input ng-model="artist.city" type="text" class="form-control" id="city" placeholder="Enter city">
+  </div>
+  <!-- <div class="checkbox">
+    <label>
+      <input type="checkbox"> Remember me
+    </label>
+  </div> -->
+  <button type="submit" class="btn btn-primary">Add artist</button>
+</form>
+<table class="table table-bordered">
+	<thead>
+		<tr class="warning">
+			<th>Fave</th>
+			<th>Name</th>
+			<th>Movie</th>
+			<th>City</th>
+			<th>Actions</th>
+		</tr>
+		
+	</thead>
+	<tr ng-repeat="item in artists | orderByPriority" >
+		<td><input type="checkbox"></td>
+		<td>{{item.name}}</td>
+		<td>{{item.movie}}</td>
+		<td>{{item.city}}</td>
+		<td>
+			<!-- remove feature -->
+			<button ng-click="artists.$remove(item.$id)" type="submit" class="btn btn-danger">Remove</button>
+		</td>
+	</tr>
+</table>
+
+
+<!-- {{testVar}} -->
+<br>
+
+<!-- {{artist}} -->
+<br>
+<!-- {{artists}} -->
+
+
