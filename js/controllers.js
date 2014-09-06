@@ -1,11 +1,11 @@
 angular.module('myApp.controllers', [])
-.controller('LandingPageCtrl', ['', function(){
+.controller('LandingPageCtrl', function(){
 	
-}])
-.controller('ArtistsPageCtrl', ['$scope','$firebase', function($scope,$firebase){
+})
+.controller('ArtistsPageCtrl', ['$scope','$firebase', 'FIREBASE_URL', function($scope,$firebase,FIREBASE_URL){
 	
 //Production code ////
-	var artistRef = new Firebase('https://artistsfavelist.firebaseio.com/artists');
+	var artistRef = new Firebase(FIREBASE_URL +'artists');
 
 	$scope.artists = $firebase(artistRef);
 
@@ -27,4 +27,37 @@ angular.module('myApp.controllers', [])
 	// 	$scope.artists.push($scope.artist);
 	// 	$scope.artist = {name:'', movie:'', city:''};
 	// };
+}])
+.controller('AuthPageCtrl', ['$scope','$firebaseSimpleLogin','$location','FIREBASE_URL', function($scope,$firebaseSimpleLogin,$location,FIREBASE_URL){
+	var authRef = new Firebase(FIREBASE_URL);
+	var auth = $firebaseSimpleLogin(authRef);
+
+	$scope.user = {email:'', password:''};
+
+	$scope.register = function() {
+		auth.$createUser($scope.user.email, $scope.user.password).then(function(data){
+			console.log(data);
+			$scope.login();//call login func instead of the direct call to the $login firebase api
+		});
+	};
+
+	$scope.login = function() {
+		auth.$login('password', $scope.user).then(function(data){
+			console.log(data);
+			//Redirect users to the /artists page, with the help of the $location service
+			$location.path('/artists');
+		});
+	};
+
+	$scope.logout = function() {
+		auth.$logout();
+		//Redirect users to the landing page /.
+		$location.path('/');
+	};
+	
 }]);
+
+
+
+
+

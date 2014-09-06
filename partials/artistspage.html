@@ -32,7 +32,7 @@
 		
 	</thead>
 	<tr ng-repeat="item in artists | orderByPriority" >
-		<td><input type="checkbox"></td>
+		<td><input type="checkbox" ng-model="item.favorite" ng-change="artists.$save(item.$id)"></td>
 		<td>{{item.name}}</td>
 		<td>{{item.movie}}</td>
 		<td>{{item.city}}</td>
